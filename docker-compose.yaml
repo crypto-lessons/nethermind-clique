@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  nethermind:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: nethermind
+    hostname: nethermind
+    volumes:
+      - ./config/genesis.json:/nethermind/chainspec/genesis.json
+      - ./config/config.cfg:/nethermind/config/config.cfg
+      - ./config/static-nodes.json:/nethermind/static-nodes.json
+      - ./data:/nethermind/nethermind_db
+      - ./keystore:/nethermind/keystore
+      - ./logs:/nethermind/logs
+    ports:
+      - ${JSONRPC_PORT}:8545
+      - ${NETWORK_PORT}:8546
+      - ${WS_PORT}:30303
+      - 3000:3000
+      - 9091:9091
